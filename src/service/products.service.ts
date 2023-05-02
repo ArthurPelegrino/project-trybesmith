@@ -1,4 +1,4 @@
-import addProduct from '../models/products.model';
+import productsModel from '../models/products.model';
 
 type Product = {
   id: number,
@@ -7,8 +7,13 @@ type Product = {
 };
 
 const registerNewProduct = async (name: string, amount: string): Promise<Product | undefined> => {
-  const newProduct = await addProduct(name, amount);
+  const newProduct = await productsModel.addProduct(name, amount);
   return newProduct;
 };
 
-export default registerNewProduct;
+const getAllProducts = async () => {
+  const products = await productsModel.getAll();
+  return products;
+};
+
+export default { registerNewProduct, getAllProducts };

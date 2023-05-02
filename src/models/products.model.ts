@@ -5,6 +5,7 @@ type Product = {
   id: number,
   name: string,
   amount: string,
+  orderId?: number
 };
 
 const addProduct = async (name: string, amount: string): Promise<Product> => {
@@ -18,4 +19,13 @@ const addProduct = async (name: string, amount: string): Promise<Product> => {
   return newProduct;
 };
 
-export default addProduct;
+const getAll = async (): Promise<Product[]> => {
+  const [rows] = await connection.execute(
+    'SELECT * FROM Trybesmith.products',
+  );
+  return rows as Product[];
+};
+
+export default {
+  addProduct, 
+  getAll };
